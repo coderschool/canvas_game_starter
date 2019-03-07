@@ -15,8 +15,9 @@ let ctx;
 
 canvas = document.createElement("canvas");
 ctx = canvas.getContext("2d");
-canvas.width = 512;
-canvas.height = 480;
+canvas.width = 800;
+canvas.height = 500;
+canvas.style.border = "thick solid #66b3ff"; 
 document.body.appendChild(canvas);
 
 let bgReady, heroReady, monsterReady;
@@ -28,20 +29,21 @@ function loadImages() {
     // show the background image
     bgReady = true;
   };
-  bgImage.src = "images/background.png";
+  bgImage.src = "images/sea-background.jpg";
+
   heroImage = new Image();
   heroImage.onload = function () {
     // show the hero image
     heroReady = true;
   };
-  heroImage.src = "images/hero.png";
+  heroImage.src = "images/mermaid.png"; 
 
   monsterImage = new Image();
   monsterImage.onload = function () {
     // show the monster image
     monsterReady = true;
   };
-  monsterImage.src = "images/monster.png";
+  monsterImage.src = "images/witch.png";
 }
 
 /** 
@@ -54,11 +56,14 @@ function loadImages() {
  * The same applies to the monster.
  */
 
-let heroX = canvas.width / 2;
-let heroY = canvas.height / 2;
+let heroX = canvas.width / 2; //X position of hero  
+let heroY = canvas.height / 2; // Y position of hero
 
-let monsterX = 100;
-let monsterY = 100;
+// let monsterX = 100; //X position of monster
+// let monsterY = 100; //Y position of monster
+
+let monsterX = Math.floor((Math.random() * canvas.width - 100)); //X position of monster
+let monsterY = Math.floor((Math.random() * canvas.height - 100)); //Y position of monster
 
 /** 
  * Keyboard Listeners
@@ -85,10 +90,17 @@ function setupKeyboardListeners() {
  *  and check to see if the monster has been caught!
  *  
  *  If you change the value of 5, the player will move at a different rate.
+ */ 
+
+ /** 38 is keycode of arrowUp;
+    40 is keycode of arrowDown;
+    37 is keycode of arrowLeft;
+    39 is keycode of arrowRight;
  */
+
 let update = function () {
   if (38 in keysDown) { // Player is holding up key
-    heroY -= 5;
+    heroY -= 5;         //
   }
   if (40 in keysDown) { // Player is holding down key
     heroY += 5;
@@ -102,7 +114,7 @@ let update = function () {
 
   // Check if player and monster collided. Our images
   // are about 32 pixels big.
-  if (
+  if ( 
     heroX <= (monsterX + 32)
     && monsterX <= (heroX + 32)
     && heroY <= (monsterY + 32)
@@ -110,8 +122,8 @@ let update = function () {
   ) {
     // Pick a new location for the monster.
     // Note: Change this to place the monster at a new, random location.
-    monsterX = monsterX + 50;
-    monsterY = monsterY + 70;
+    monsterX = Math.floor((Math.random() * (canvas.width - 100)));
+    monsterY = Math.floor((Math.random() * (canvas.height - 100)));
   }
 };
 
@@ -123,10 +135,10 @@ var render = function () {
     ctx.drawImage(bgImage, 0, 0);
   }
   if (heroReady) {
-    ctx.drawImage(heroImage, heroX, heroY);
+    ctx.drawImage(heroImage, heroX, heroY, heroImage.width = 40, heroImage.height = 40); 
   }
   if (monsterReady) {
-    ctx.drawImage(monsterImage, monsterX, monsterY);
+    ctx.drawImage(monsterImage, monsterX, monsterY, monsterImage.width = 40, monsterImage.height = 40);
   }
 };
 
