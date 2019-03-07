@@ -21,8 +21,9 @@ canvas.height = 480;
 // canvas.height = 740;
 document.body.appendChild(canvas);
 
-let bgReady, heroReady, monsterReady;
-let bgImage, heroImage, monsterImage;
+let bgReady, dinoReady, eggReady;
+let bgImage, dinoImage, eggImage;
+let gameScore, eggCatch;
 
 function loadImages() {
   bgImage = new Image(); //create new Img Element
@@ -31,39 +32,44 @@ function loadImages() {
     bgReady = true;
   };
   bgImage.src = "images/background2.png";
-  heroImage = new Image();
-  heroImage.onload = function () {
-    // show the hero image
-    heroReady = true;
+  dinoImage = new Image();
+  dinoImage.onload = function () {
+    // show the dino image
+    dinoReady = true;
   };
-  heroImage.src = "images/hero.png";
+  dinoImage.src = "images/dino.png";
 
-  monsterImage = new Image();
-  monsterImage.onload = function () {
-    // show the monster image
-    monsterReady = true;
+  eggImage = new Image();
+  eggImage.onload = function () {
+    // show the egg image
+    eggReady = true;
   };
-  monsterImage.src = "images/monster.png";
+  eggImage.src = "images/egg.png";
+
+
+
 }
 
 /** 
  * Setting up our characters.
  
 
- * Note that heroX represents the X position of our hero.
- * heroY represents the Y position.
- * We'll need these values to know where to "draw" the hero.
+ * Note that dinoX represents the X position of our dino.
+ * dinoY represents the Y position.
+ * We'll need these values to know where to "draw" the dino.
  * 
- * The same applies to the monster.
+ * The same applies to the egg.
  */
 
-let heroX = canvas.width / 2;
-let heroY = canvas.height / 2;
+let dinoX = canvas.width / 2;
+let dinoY = canvas.height / 2;
 
-let monsterX = 100;
-let monsterY = 100;
+let eggX = 100;
+let eggY = 100;
 
-let monsterIsCaught = false;
+let eggIsCaught = false;
+
+
 
 
 
@@ -92,42 +98,42 @@ function setupKeyboardListeners() {
 
 /**
  *  Update game objects - change player position based on key pressed
- *  and check to see if the monster has been caught!
+ *  and check to see if the egg has been caught!
  *  
  *  If you change the value of 5, the player will move at a different rate.
  */
 let update = function () {
   if (38 in keysDown) { // Player is holding up key
-    heroY -= 5;
+    dinoY -= 6;
   }
   if (40 in keysDown) { // Player is holding down key
-    heroY += 5;
+    dinoY += 6;
   }
   if (37 in keysDown) { // Player is holding left key
-    heroX -= 5;
+    dinoX -= 6;
   }
   if (39 in keysDown) { // Player is holding right key
-    heroX += 5;
+    dinoX += 6;
   }
-  heroX = Math.min(canvas.width - 100, heroX);
-  heroX = Math.max(0, heroX);
-  heroY = Math.min(canvas.height - 145, heroY);
-  heroY = Math.max(0, heroY);
+  dinoX = Math.min(canvas.width - 100, dinoX);
+  dinoX = Math.max(0, dinoX);
+  dinoY = Math.min(canvas.height - 145, dinoY);
+  dinoY = Math.max(0, dinoY);
 
 
 
-  // Check if player and monster collided. Our images
+  // Check if player and egg collided. Our images
   // are about 32 pixels big.
   if (
-    heroX <= (monsterX + 32) &&
-    monsterX <= (heroX + 32) &&
-    heroY <= (monsterY + 32) &&
-    monsterY <= (heroY + 32)
+    dinoX <= (eggX + 40) &&
+    eggX <= (dinoX + 40) &&
+    dinoY <= (eggY + 40) &&
+    eggY <= (dinoY + 40)
   ) {
-    // Pick a new location for the monster.
-    // Note: Change this to place the monster at a new, random location.
-    monsterX = Math.floor(Math.random() * 450);
-    monsterY = Math.floor(Math.random() * 350);
+    // Pick a new location for the egg.
+    // Note: Change this to place the egg at a new, random location.
+    eggX = Math.floor(Math.random() * 450);
+    eggY = Math.floor(Math.random() * 350);
   }
 };
 
@@ -135,20 +141,25 @@ let update = function () {
  * This function, render, runs as often as possible.
  */
 var render = function () {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   if (bgReady) {
     ctx.drawImage(bgImage, 0, 0);
   }
-  if (heroReady) {
-    ctx.drawImage(heroImage, heroX, heroY);
+  if (dinoReady) {
+    ctx.drawImage(dinoImage, dinoX, dinoY);
   }
-  if (monsterReady) {
-    ctx.drawImage(monsterImage, monsterX, monsterY);
+  if (eggReady) {
+    ctx.drawImage(eggImage, eggX, eggY);
   }
+  ctx.font = "15px Comic Sans MS";
+  ctx.fillStyle = "red";
+  ctx.textAlign = "center";
+  ctx.fillText("Total Socre", 50, 20);
 };
 
 /**
  * The main game loop. Most every game will have two distinct parts:
- * update (updates the state of the game, in this case our hero and monster)
+ * update (updates the state of the game, in this case our dino and egg)
  * render (based on the state of our game, draw the right things)
  */
 var main = function () {
