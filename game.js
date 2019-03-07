@@ -17,18 +17,20 @@ canvas = document.createElement("canvas");
 ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 480;
+// canvas.width = 800;
+// canvas.height = 740;
 document.body.appendChild(canvas);
 
 let bgReady, heroReady, monsterReady;
 let bgImage, heroImage, monsterImage;
 
 function loadImages() {
-  bgImage = new Image();
-  bgImage.onload = function () {
+  bgImage = new Image(); //create new Img Element
+  bgImage.onload = function () { //// execute drawImage statements here
     // show the background image
     bgReady = true;
   };
-  bgImage.src = "images/background.png";
+  bgImage.src = "images/background2.png";
   heroImage = new Image();
   heroImage.onload = function () {
     // show the hero image
@@ -46,7 +48,8 @@ function loadImages() {
 
 /** 
  * Setting up our characters.
- * 
+ 
+
  * Note that heroX represents the X position of our hero.
  * heroY represents the Y position.
  * We'll need these values to know where to "draw" the hero.
@@ -60,13 +63,20 @@ let heroY = canvas.height / 2;
 let monsterX = 100;
 let monsterY = 100;
 
+let monsterIsCaught = false;
+
+
+
+
+
 /** 
  * Keyboard Listeners
  * You can safely ignore this part, for now. 
  * 
  * This is just to let JavaScript know when the user has pressed a key.
-*/
+ */
 let keysDown = {};
+
 function setupKeyboardListeners() {
   // Check for keys pressed where key represents the keycode captured
   // For now, do not worry too much about what's happening here. 
@@ -99,19 +109,25 @@ let update = function () {
   if (39 in keysDown) { // Player is holding right key
     heroX += 5;
   }
+  heroX = Math.min(canvas.width - 100, heroX);
+  heroX = Math.max(0, heroX);
+  heroY = Math.min(canvas.height - 145, heroY);
+  heroY = Math.max(0, heroY);
+
+
 
   // Check if player and monster collided. Our images
   // are about 32 pixels big.
   if (
-    heroX <= (monsterX + 32)
-    && monsterX <= (heroX + 32)
-    && heroY <= (monsterY + 32)
-    && monsterY <= (heroY + 32)
+    heroX <= (monsterX + 32) &&
+    monsterX <= (heroX + 32) &&
+    heroY <= (monsterY + 32) &&
+    monsterY <= (heroY + 32)
   ) {
     // Pick a new location for the monster.
     // Note: Change this to place the monster at a new, random location.
-    monsterX = monsterX + 50;
-    monsterY = monsterY + 70;
+    monsterX = Math.floor(Math.random() * 450);
+    monsterY = Math.floor(Math.random() * 350);
   }
 };
 
@@ -136,7 +152,7 @@ var render = function () {
  * render (based on the state of our game, draw the right things)
  */
 var main = function () {
-  update(); 
+  update();
   render();
   // Request to do this again ASAP. This is a special method
   // for web browsers. 
