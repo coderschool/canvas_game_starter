@@ -13,34 +13,60 @@
   </head>
 
   <body>
-    <h1 class="">Help Dino To Collet Eggs</h1>
+    <!-- <div class="form-popup" id="myForm">
+      <form action="/action_page.php" class="form-container">
+        <label for="playerName"><b>Please enter your name</b></label>
+        <input
+          id="nameInput"
+          type="text"
+          placeholder="your name"
+          name="email"
+          required
+        />
+        <button id="submitBtn" type="submit" class="btn border">Submit</button>
+      </form>
+    </div> -->
+
+    <h3 class=" text-center text-white">Help Dino To Collet Eggs</h3>
     <br />
     <div class="container " id="scoreScreen">
+      <p id="playerName"></p>
       <div class="row d-flex flex-row">
-        <div class="col-6 ">
-          <canvas class="border border-secondary" id="playScreen"> </canvas>
+        <div class="col-lg-6 col-md-12 ">
+          <canvas class="border border-warning" id="playScreen"> </canvas>
         </div>
-        <div class="col-2">
-          <ul class="list-group ">
-            <li class="list-group-item"><span id="remain-time"></span></li>
-            <li class="list-group-item">
+        <div class="col-lg-2 col-md-12 border border-warning">
+          <ul class="list-group-flush list-group">
+            <li class="list-group-item set-color-bg ">
+              <span class="timeSlot text-white " id="remain-time"></span>
+            </li>
+            <li class="list-group-item set-color-bg">
               <span><img clas="egg-img" src="images/egg.png"/></span>
-              <span id="eggCountHTML"> eggCount</span>
+              <span class="eggCountStyle" id="eggCountHTML"> eggCount</span>
             </li>
 
-            <li class="list-group-item">
-              <button id="resetBtn">New Game</button>
+            <li class="list-group-item set-color-bg">
+              <button class="button-bg" id="resetBtn">New Game</button>
             </li>
 
-            <li class="list-group-item">
-              <button id="shareScore">Share</button>
+            <li class="list-group-item set-color-bg">
+              <button class="button-bg" id="volOn">
+                <img src="images/volumn_on.png" />
+              </button>
+            </li>
+            <li class="list-group-item set-color-bg">
+              <button class="button-bg" id="volOff">
+                <img src="images/volumn_off.png" />
+              </button>
+            
+            <li class="list-group-item set-color-bg"></li>
+              <button class="button-bg" id="playHint"><img src="images/instruction.png" /></button>
             </li>
           </ul>
         </div>
+        <div class="col-lg-4 col-md-12"></div>
       </div>
     </div>
-
-    <div id="canvasContainer"></div>
 
     <script src="game.js"></script>
   </body>

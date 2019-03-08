@@ -15,7 +15,7 @@ let ctx;
 canvas = document.querySelector("canvas");
 ctx = canvas.getContext("2d");
 canvas.width = 512;
-canvas.height = 480;
+canvas.height = 488;
 
 // document.body.appendChild(canvas);
 
@@ -79,18 +79,6 @@ let eggIsCaught = false;
 
 let eggCount = 0;
 
-function randomColor() {
-  color =
-    "rgb(" +
-    Math.round(Math.random() * 255) +
-    "," +
-    Math.round(Math.random() * 255) +
-    "," +
-    Math.round(Math.random() * 255) +
-    ")";
-
-  return color;
-}
 /**
  * Keyboard Listeners
  * You can safely ignore this part, for now.
@@ -144,7 +132,7 @@ let update = function() {
   if (37 in keysDown) {
     // Player is holding left key
     dinoX -= 6;
-    dinoImage.src = "images/hero_left.png";
+    dinoImage.src = "images/dino_left.png";
     if (dinoX < 0) {
       dinoX = canvas.width;
     }
@@ -153,8 +141,6 @@ let update = function() {
     // Player is holding right key
     dinoX += 6;
     dinoImage.src = "images/dino.png";
-    console.log("dino ", dinoX);
-    console.log("canvas ", canvas.width);
     if (dinoX >= canvas.width) {
       dinoX = 0;
     }
@@ -264,6 +250,19 @@ function initializeClock(id, endtime) {
   timeinterval = setInterval(updateClock, 1000);
 }
 
+function closeForm(element) {
+  document.getElementById(element).style.display = "none";
+}
+
+// function submitName() {
+//   let userInputName = document.getElementById("nameInput").value;
+//   let player = document.getElementById("playerName");
+//   player.innerHTML = userInputName;
+//   closeForm(myform);
+// }
+// let submitButton = document.getElementById("submitBtn");
+// submitButton.addEventListener("click", submitName);
+
 function stopTimer(clock) {
   clearInterval(clock);
   // secondsSpan.innerHTML = "0";
@@ -282,5 +281,11 @@ function getTimeRemaining(endtime) {
 
 // Let's play this game!
 loadImages();
+
 setupKeyboardListeners();
+
 main();
+// let userInput = prompt("Please enter your name");
+// let player = document.getElementById("playerName");
+// player.innerHTML = userInput;
+// console.log("username", userInput);
