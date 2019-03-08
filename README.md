@@ -22,11 +22,11 @@ This code was reviewed by @username and @otherusername.
 - [ ] I have at least three code reviews from others.
 - [x] The user can move their character with the arrow keys. 
 - [x] The user can see a monster.
-- [ ] The monster is placed at a random location within the game boundaries.
+- [x] The monster is placed at a random location within the game boundaries.
 - [x] The user can catch a monster by moving their character to the same location as a monster.
-- [ ] When the user catches a monster, a new monster is placed randomly upon the screen.
-- [ ] The user can see the numbers of monsters she has caught. Every time she catches a monster, the number should increment by one. 
-- [ ] The game ends when the user has caught 20 monsters. The total time elapsed is displayed upon game completion, in seconds.
+- [x] When the user catches a monster, a new monster is placed randomly upon the screen.
+- [x] The user can see the numbers of monsters she has caught. Every time she catches a monster, the number should increment by one. 
+- [x] The game ends when the user has caught 20 monsters. The total time elapsed is displayed upon game completion, in seconds.
 - [ ] The user can access this game from the internet (e.g. using Netlify).
 - [ ] The code has been reviewed by at least one other person, using Pull Requests on GitHub.
 
