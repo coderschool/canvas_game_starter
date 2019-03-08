@@ -5,7 +5,7 @@
   height: 480px;
 } */
 
-.egg-img {
+/* .egg-img {
   width: 30px;
   height: 20px;
 }
@@ -15,4 +15,12 @@
   margin: 0 !important;
   padding: 0 !important;
   height: 40px !important;
+} */
+
+#canvasContainer {
+  width: 512px;
+  height: 480px;
+  margin: 0px auto;
+}
+#playScreen {
 }

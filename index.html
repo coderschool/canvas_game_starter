@@ -15,38 +15,33 @@
   <body>
     <h1 class="">Help Dino To Collet Eggs</h1>
     <br />
-    <div>
-      <div
-        class=" mb-3 border border-secondary result-border-style text-left"
-        id="scoreScreen"
-      >
-        <div class="row d-flex flex-row">
-          <div class="col-2 col-size ">
-            <span class="ml-5"><img clas="egg-img" src="images/egg.png"/></span>
-            <span id="eggCountHTML"> eggCount</span>
-          </div>
-          <div class="col-1 col-size ">
-            <span id="remain-time"></span>
-          </div>
-          <div class="col-1 col-size ">
-            <button id="resetBtn">New Game</button>
-          </div>
+    <div class="container " id="scoreScreen">
+      <div class="row d-flex flex-row">
+        <div class="col-6 ">
+          <canvas class="border border-secondary" id="playScreen"> </canvas>
+        </div>
+        <div class="col-2">
+          <ul class="list-group ">
+            <li class="list-group-item"><span id="remain-time"></span></li>
+            <li class="list-group-item">
+              <span><img clas="egg-img" src="images/egg.png"/></span>
+              <span id="eggCountHTML"> eggCount</span>
+            </li>
 
-          <div class="col-1 col-size ">
-            <button id="shareScore">Share</button>
-          </div>
+            <li class="list-group-item">
+              <button id="resetBtn">New Game</button>
+            </li>
+
+            <li class="list-group-item">
+              <button id="shareScore">Share</button>
+            </li>
+          </ul>
         </div>
       </div>
-
-      <canvas
-        class=" border border-secondary result-border-style"
-        id="playScreen"
-      >
-      </canvas>
     </div>
+
+    <div id="canvasContainer"></div>
 
     <script src="game.js"></script>
   </body>
 </html>
-
-<div class="container"></div>

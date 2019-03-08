@@ -16,12 +16,22 @@ canvas = document.querySelector("canvas");
 ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 480;
-// canvas.width = 800;
-// canvas.height = 740;
-document.body.appendChild(canvas);
+
+// document.body.appendChild(canvas);
 
 let bgReady, dinoReady, eggReady;
 let bgImage, dinoImage, eggImage;
+
+var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 10 * 1000);
+
+let newGameBtn = document.getElementById("resetBtn");
+newGameBtn.addEventListener("click", Reset);
+
+let secondsSpan = document.getElementById("remain-time");
+
+var timeinterval;
+
+initializeClock("remain-time", deadline);
 
 function loadImages() {
   bgImage = new Image(); //create new Img Element
@@ -47,14 +57,7 @@ function loadImages() {
 }
 
 //random color
-function getRandomColor(x) {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+
 /** 
  * Setting up our characters.
  
@@ -76,9 +79,18 @@ let eggIsCaught = false;
 
 let eggCount = 0;
 
-const duration = 10;
-let startTime;
+function randomColor() {
+  color =
+    "rgb(" +
+    Math.round(Math.random() * 255) +
+    "," +
+    Math.round(Math.random() * 255) +
+    "," +
+    Math.round(Math.random() * 255) +
+    ")";
 
+  return color;
+}
 /**
  * Keyboard Listeners
  * You can safely ignore this part, for now.
@@ -93,6 +105,7 @@ function setupKeyboardListeners() {
   addEventListener(
     "keydown",
     function(key) {
+      // keysDown[34] = true;
       keysDown[key.keyCode] = true;
     },
     false
@@ -117,23 +130,39 @@ let update = function() {
   if (38 in keysDown) {
     // Player is holding up key
     dinoY -= 6;
+    if (dinoY < 0) {
+      dinoY = canvas.height;
+    }
   }
   if (40 in keysDown) {
     // Player is holding down key
     dinoY += 6;
+    if (dinoY >= canvas.height) {
+      dinoY = 0;
+    }
   }
   if (37 in keysDown) {
     // Player is holding left key
     dinoX -= 6;
+    dinoImage.src = "images/hero_left.png";
+    if (dinoX < 0) {
+      dinoX = canvas.width;
+    }
   }
   if (39 in keysDown) {
     // Player is holding right key
     dinoX += 6;
+    dinoImage.src = "images/dino.png";
+    console.log("dino ", dinoX);
+    console.log("canvas ", canvas.width);
+    if (dinoX >= canvas.width) {
+      dinoX = 0;
+    }
   }
-  dinoX = Math.min(canvas.width - 60, dinoX);
-  dinoX = Math.max(0, dinoX);
-  dinoY = Math.min(canvas.height - 70, dinoY);
-  dinoY = Math.max(0, dinoY);
+  // dinoX = Math.min(canvas.width - 50, dinoX);
+  // dinoX = Math.max(0, dinoX);
+  // dinoY = Math.min(canvas.height - 70, dinoY);
+  // dinoY = Math.max(0, dinoY);
 
   // Check if player and egg collided. Our images
   // are about 32 pixels big.
@@ -145,8 +174,8 @@ let update = function() {
     eggY <= dinoY + 40
   ) {
     eggCount += 1;
+    eggIsCaught = true;
     if (eggCount == 5) {
-      eggIsCaught = true;
     }
 
     // Pick a new location for the egg.
@@ -179,17 +208,18 @@ var render = function() {
  */
 
 var main = function() {
-  update();
-
-  render();
-
-  let eggCountNum = document.getElementById("eggCountHTML");
-  eggCountNum.innerHTML = eggCount;
-
-  if (eggIsCaught) {
-    ctx.font = "12px Comic Sans MS";
+  if (eggCount == 2) {
+    ctx.font = "30px Comic Sans MS";
     ctx.fillStyle = "red";
-    ctx.fillText("You win", canvas.width / 2, canvas.height / 2);
+    ctx.fillText("You win", 100, 100);
+    stopTimer(timeinterval);
+  } else {
+    update();
+
+    render();
+
+    let eggCountNum = document.getElementById("eggCountHTML");
+    eggCountNum.innerHTML = eggCount;
   }
 
   // ctx.font = "12px Comic Sans MS";
@@ -204,23 +234,40 @@ var main = function() {
 // Cross-browser support for requestAnimationFrame.
 // Safely ignore this line. It's mostly here for people with old web browsers.
 var w = window;
+
 requestAnimationFrame =
   w.requestAnimationFrame ||
   w.webkitRequestAnimationFrame ||
   w.msRequestAnimationFrame ||
   w.mozRequestAnimationFrame;
 
-// Let's play this game!
-loadImages();
-setupKeyboardListeners();
-main();
-
 function Reset() {
   location.reload();
 }
 
-let newGameBtn = document.getElementById("resetBtn");
-newGameBtn.addEventListener("click", Reset);
+function initializeClock(id, endtime) {
+  var timer = document.getElementById(id);
+
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+
+    secondsSpan.innerHTML = ("0" + t.seconds).slice(-2);
+
+    if (t.total <= 0) {
+      // stopTimer(timeinterval);
+      clearInterval(timeinterval);
+      // secondsSpan.innerHTML = "0";
+    }
+  }
+
+  updateClock();
+  timeinterval = setInterval(updateClock, 1000);
+}
+
+function stopTimer(clock) {
+  clearInterval(clock);
+  // secondsSpan.innerHTML = "0";
+}
 
 function getTimeRemaining(endtime) {
   var t = Date.parse(endtime) - Date.parse(new Date());
@@ -233,24 +280,7 @@ function getTimeRemaining(endtime) {
   };
 }
 
-function initializeClock(id, endtime) {
-  var timer = document.getElementById(id);
-
-  var secondsSpan = document.getElementById("remain-time");
-
-  function updateClock() {
-    var t = getTimeRemaining(endtime);
-
-    secondsSpan.innerHTML = ("0" + t.seconds).slice(-2);
-
-    if (t.total <= 0) {
-      clearInterval(timeinterval);
-    }
-  }
-
-  updateClock();
-  var timeinterval = setInterval(updateClock, 1000);
-}
-
-var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 10 * 1000);
-initializeClock("remain-time", deadline);
+// Let's play this game!
+loadImages();
+setupKeyboardListeners();
+main();
