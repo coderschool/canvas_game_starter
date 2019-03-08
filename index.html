@@ -1,16 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Best Game Ever!</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="main.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>Best Game Ever!</title>
-</head>
+  <body>
+    <h1 class="">Help Dino To Collet Eggs</h1>
+    <br />
+    <div>
+      <div
+        class=" mb-3 border border-secondary result-border-style text-left"
+        id="scoreScreen"
+      >
+        <div class="row d-flex flex-row">
+          <div class="col-2 col-size ">
+            <span class="ml-5"><img clas="egg-img" src="images/egg.png"/></span>
+            <span id="eggCountHTML"> eggCount</span>
+          </div>
+          <div class="col-1 col-size ">
+            <span id="remain-time"></span>
+          </div>
+          <div class="col-1 col-size ">
+            <button id="resetBtn">New Game</button>
+          </div>
 
-<body>
-  <h1 class="text-center">Help Dino To Collet Eggs</h1>
-  <div id="container">
+          <div class="col-1 col-size ">
+            <button id="shareScore">Share</button>
+          </div>
+        </div>
+      </div>
+
+      <canvas
+        class=" border border-secondary result-border-style"
+        id="playScreen"
+      >
+      </canvas>
+    </div>
+
     <script src="game.js"></script>
-  </div>
-</body>
-
+  </body>
 </html>
+
+<div class="container"></div>

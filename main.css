@@ -1,0 +1,18 @@
+/* .result-border-style {
+  position: relative;
+  margin-left: 200px;
+  width: 100px !important;
+  height: 480px;
+} */
+
+.egg-img {
+  width: 30px;
+  height: 20px;
+}
+
+.col-size {
+  width: 50px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 40px !important;
+}
