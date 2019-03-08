@@ -27,17 +27,17 @@ This code was reviewed by @username and @otherusername.
 - [x] The monster is placed at a random location within the game boundaries.
 - [x] The user can catch a monster by moving their character to the same location as a monster.
 - [x] When the user catches a monster, a new monster is placed randomly upon the screen.
-- [ ] The user can see the numbers of monsters she has caught. Every time she catches a monster, the number should increment by one. 
-- [ ] The game ends when the user has caught 20 monsters. The total time elapsed is displayed upon game completion, in seconds.
+- [x] The user can see the numbers of monsters she has caught. Every time she catches a monster, the number should increment by one. 
+- [x] The game ends when the user has caught 20 monsters. The total time elapsed is displayed upon game completion, in seconds.
 - [ ] The user can access this game from the internet (e.g. using Netlify).
 - [ ] The code has been reviewed by at least one other person, using Pull Requests on GitHub.
 
 ## Optional User Stories
 
 - [x] Custom styling: the developer has replaced the images for the main character, monster, and background with something of her choice.  
-- [ ] The user cannot move her character off the screen. 
-- [ ] The user sees a few different types of monster each time a new monster is spawned. 
-- [ ] The monster moves around on its own each frame, and the user must chase it. 
+- [x] The user cannot move her character off the screen. 
+- [x] The user sees a few different types of monster each time a new monster is spawned. 
+- [x] The monster moves around on its own each frame, and the user must chase it. 
 - [ ] The map has "obstacles", such as trees, which block the user from moving through the space occupied by the obstacle. 
 - [ ] The user can hear sound effects upon movement and upon catching a monster. 
 - [ ] The user hears background music during the game. 
@@ -71,4 +71,4 @@ Describe any challenges encountered while building the app.
     limitations under the License.
 
     Mermaid image license: <a href="https://pngtree.com/">Graphics from pngtree.com</a>
-    Witch image license: <a href=“https://pngtree.com/free-vectors“>free vectors from pngtree.com</a>
+    Ocean background image:  <a href="https://pngtree.com/free-backgrounds">free background photos from pngtree.com</a>
