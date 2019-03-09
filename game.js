@@ -31,6 +31,8 @@ let secondsSpan = document.getElementById("remain-time");
 
 var timeinterval;
 
+var backgroundMusic;
+
 initializeClock("remain-time", deadline);
 
 function loadImages() {
@@ -125,7 +127,7 @@ let update = function() {
   if (40 in keysDown) {
     // Player is holding down key
     dinoY += 6;
-    if (dinoY >= canvas.height) {
+    if (dinoY > canvas.height) {
       dinoY = 0;
     }
   }
@@ -160,9 +162,6 @@ let update = function() {
     eggY <= dinoY + 40
   ) {
     eggCount += 1;
-    eggIsCaught = true;
-    if (eggCount == 5) {
-    }
 
     // Pick a new location for the egg.
     // Note: Change this to place the egg at a new, random location.
@@ -194,10 +193,18 @@ var render = function() {
  */
 
 var main = function() {
-  if (eggCount == 2) {
-    ctx.font = "30px Comic Sans MS";
+  if (eggCount == 5) {
+    eggCount == 5;
+    ctx.font = "20px Comic Sans MS";
     ctx.fillStyle = "red";
-    ctx.fillText("You win", 100, 100);
+    ctx.fillText("Congrats. You win", 150, 150);
+    stopTimer(timeinterval);
+  }
+  if (secondsSpan == 0) {
+    eggCount == 5;
+    ctx.font = "20px Comic Sans MS";
+    ctx.fillStyle = "red";
+    ctx.fillText("Sorry, try next time", 150, 150);
     stopTimer(timeinterval);
   } else {
     update();
@@ -251,15 +258,21 @@ function initializeClock(id, endtime) {
 }
 
 function closeForm(element) {
-  document.getElementById(element).style.display = "none";
+  document.getElementById("element").style.display = "none";
 }
 
 // function submitName() {
-//   let userInputName = document.getElementById("nameInput").value;
-//   let player = document.getElementById("playerName");
-//   player.innerHTML = userInputName;
-//   closeForm(myform);
-// }
+// let userInputName = document.getElementById("nameInput").value;
+
+// let player = document.getElementById("playerName");
+// player.innerHTML = userInputName;
+// closeForm("myForm");
+// document
+//   .getElementById("submitBtn")
+//   .addEventListener("click", function(event) {
+//     event.preventDefault();
+//   });
+
 // let submitButton = document.getElementById("submitBtn");
 // submitButton.addEventListener("click", submitName);
 
@@ -280,6 +293,28 @@ function getTimeRemaining(endtime) {
 }
 
 // Let's play this game!
+
+backgroundMusic = document.getElementById("myBgMusic");
+
+function playAudio() {
+  myBgMusic.play();
+}
+let volOnBtn = document.getElementById("volOn");
+volOnBtn.addEventListener("click", playAudio);
+
+function pauseAudio() {
+  myBgMusic.pause();
+}
+let volOffBtn = document.getElementById("volOff");
+volOffBtn.addEventListener("click", pauseAudio);
+
+function display() {
+  document.getElementById("instruction").style.display = "none";
+}
+
+let hintBtn = document.getElementById("playHint");
+hintBtn.addEventListener("click", display);
+
 loadImages();
 
 setupKeyboardListeners();
