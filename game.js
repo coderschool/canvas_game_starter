@@ -1,13 +1,8 @@
 
 let canvas;
 let ctx;
-
-canvas = document.createElement("canvas");
-ctx = canvas.getContext("2d");
-canvas.width = 1000;
-canvas.height = 429;
-document.body.appendChild(canvas);
-
+let bgReady, zoombieReady, plantReady, fixedReady;
+let bgImage, zoombieImage, plantImage, fixedImage;
 let result = document.getElementById("count");
 let timer = document.getElementById("timer");
 let startBtn = document.getElementById("start"); //do more: add shortcut to start by keyboard, or only press first key.
@@ -17,9 +12,28 @@ let count = 0;
 let foo = false;
 let t = 0;
 
-let bgReady, zoombieReady, plantReady, fixedReady;
-let bgImage, zoombieImage, plantImage, fixedImage;
+canvas = document.createElement("canvas");
+ctx = canvas.getContext("2d");
+canvas.width = 1000;
+canvas.height = 429;
+document.body.appendChild(canvas);
 
+//generate random Number from 0 to x-1
+function random(x) {
+  return Math.floor(Math.random() * x)
+}
+
+//moving around 
+function changePosition() {
+  let maxw = canvas.width - plantImage.width;
+  let maxh = canvas.height - plantImage.height;
+  let nh = Math.floor(Math.random()) * maxh;
+  let nw = Math.floor(Math.random()) * maxw;
+ 
+}
+
+
+//load imgages
 function loadImages() {
   bgImage = new Image();
   bgImage.onload = function () {
@@ -131,10 +145,10 @@ let update = function () {
     && zoombieY <= (plantY + plantImage.height)
     && plantY <= (zoombieY + plantImage.height)
   ) {
+ 
     // Pick a new location for the plant.
-    // Note: Change this to place the plant at a new, random location.
-    plantX = plantX + 50;
-    plantY = plantY + 70;
+    plantX = random(canvas.width - plantImage.width);
+    plantY = random(canvas.height - plantImage.height);
   }
 };
 
@@ -165,6 +179,7 @@ var render = function () {
 var main = function () {
   update(); 
   render();
+ 
   // Request to do this again ASAP. This is a special method
   // for web browsers. 
   requestAnimationFrame(main);
