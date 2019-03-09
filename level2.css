@@ -67,17 +67,16 @@ ul.list-group-flush.eggimg {
   background-color: yellow !important;
 }
 
-.level2 {
+/* .level2 {
   display: none;
-}
+} */
 
 .level {
-  color: white;
-  margin-left: 480px;
+  margin-left: 430px;
 }
 .level a {
   text-decoration: none;
-  color: rgb(255, 255, 255);
+  color: white;
 }
 .level span {
   text-decoration: underline;
@@ -128,5 +127,6 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 55px;
-  margin-left: 240px;
+
+  margin-left: 220px;
 }

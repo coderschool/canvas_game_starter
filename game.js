@@ -17,8 +17,8 @@ ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 488;
 
-let maxCount = 1;
-let totalTime = 20;
+let maxCount = 2;
+let totalTime = 30;
 
 // document.body.appendChild(canvas);
 
@@ -178,9 +178,12 @@ let update = function() {
     }
   }
 
-
   if (
-    dinoX <= eggX + 40 && eggX <= dinoX + 40 && dinoY <= eggY + 40 && eggY <= dinoY + 40) {
+    dinoX <= eggX + 40 &&
+    eggX <= dinoX + 40 &&
+    dinoY <= eggY + 40 &&
+    eggY <= dinoY + 40
+  ) {
     eggCount += 1;
     getRandomImage();
     // Pick a new location for the egg.
