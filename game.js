@@ -1,26 +1,24 @@
-/*
-  Code modified from:
-  http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/
-  using graphics purchased from vectorstock.com
-*/
-
-/* Initialization.
-Here, we create and add our "canvas" to the page.
-We also load all of our images. 
-*/
-
 
 let canvas;
 let ctx;
 
 canvas = document.createElement("canvas");
 ctx = canvas.getContext("2d");
-canvas.width = 512;
-canvas.height = 480;
+canvas.width = 1000;
+canvas.height = 429;
 document.body.appendChild(canvas);
 
-let bgReady, heroReady, monsterReady;
-let bgImage, heroImage, monsterImage;
+let result = document.getElementById("count");
+let timer = document.getElementById("timer");
+let startBtn = document.getElementById("start"); //do more: add shortcut to start by keyboard, or only press first key.
+let resetBtn = document.getElementById("reset");
+let myTimer;
+let count = 0;
+let foo = false;
+let t = 0;
+
+let bgReady, zoombieReady, monsterReady, plantReady, fixedReady;
+let bgImage, zoombieImage, monsterImage, plantImage, fixedImage;
 
 function loadImages() {
   bgImage = new Image();
@@ -28,13 +26,13 @@ function loadImages() {
     // show the background image
     bgReady = true;
   };
-  bgImage.src = "images/background.png";
-  heroImage = new Image();
-  heroImage.onload = function () {
+  bgImage.src = "images/bg-zombie.png";
+  zoombieImage = new Image();
+  zoombieImage.onload = function () {
     // show the hero image
-    heroReady = true;
+    zoombieReady = true;
   };
-  heroImage.src = "images/hero.png";
+  zoombieImage.src = "images/zoombie-1.png";
 
   monsterImage = new Image();
   monsterImage.onload = function () {
@@ -47,15 +45,15 @@ function loadImages() {
 /** 
  * Setting up our characters.
  * 
- * Note that heroX represents the X position of our hero.
- * heroY represents the Y position.
+ * Note that zoombieX represents the X position of our hero.
+ * zoombieY represents the Y position.
  * We'll need these values to know where to "draw" the hero.
  * 
  * The same applies to the monster.
  */
 
-let heroX = canvas.width / 2;
-let heroY = canvas.height / 2;
+let zoombieX = canvas.width / 2;
+let zoombieY = canvas.height / 2;
 
 let monsterX = 100;
 let monsterY = 100;
@@ -88,25 +86,37 @@ function setupKeyboardListeners() {
  */
 let update = function () {
   if (38 in keysDown) { // Player is holding up key
-    heroY -= 5;
+    zoombieY -= 5;
   }
   if (40 in keysDown) { // Player is holding down key
-    heroY += 5;
+    zoombieY += 5;
   }
   if (37 in keysDown) { // Player is holding left key
-    heroX -= 5;
+    zoombieX -= 5;
   }
   if (39 in keysDown) { // Player is holding right key
-    heroX += 5;
+    zoombieX += 5;
   }
 
+  if( zoombieX <0) {
+    zoombieX = 0;
+  }
+  if (zoombieX> canvas.width - zoombieImage.width) {
+    zoombieX = canvas.width - zoombieImage.width;
+  }
+  if( zoombieY <0) {
+    zoombieY = 0;
+  }
+  if (zoombieY> canvas.height - zoombieImage.height) {
+    zoombieY = canvas.height - zoombieImage.height;
+  }
   // Check if player and monster collided. Our images
   // are about 32 pixels big.
   if (
-    heroX <= (monsterX + 32)
-    && monsterX <= (heroX + 32)
-    && heroY <= (monsterY + 32)
-    && monsterY <= (heroY + 32)
+    zoombieX <= (monsterX + 32)
+    && monsterX <= (zoombieX + 32)
+    && zoombieY <= (monsterY + 32)
+    && monsterY <= (zoombieY + 32)
   ) {
     // Pick a new location for the monster.
     // Note: Change this to place the monster at a new, random location.
@@ -122,8 +132,8 @@ var render = function () {
   if (bgReady) {
     ctx.drawImage(bgImage, 0, 0);
   }
-  if (heroReady) {
-    ctx.drawImage(heroImage, heroX, heroY);
+  if (zoombieReady) {
+    ctx.drawImage(zoombieImage, zoombieX, zoombieY);
   }
   if (monsterReady) {
     ctx.drawImage(monsterImage, monsterX, monsterY);

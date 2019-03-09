@@ -2,9 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Best Game Ever!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou" rel="stylesheet">
+    <title>plant & zoombie</title>
   </head>
   <body>
+    <div id="main" class="d-flex">
+      <div class="">
+        <h4>It's hunting season</h4>
+      </div>
+      <div class="">
+        <button id="start" class="btn btn-success">Start</button>
+        <button id="reset" class="btn btn-info">Reset</button>
+      </div>
+      <div id="info" class="d-flex">
+        <div id="count" class="border border-info box my-1"></div>
+        <div id="timer" class="border border-info box my-1"></div>
+      </div>
+    </div>
+    <embed src="/Angry-Birds-Theme-Song.mp3" loop="true" hidden="true" type="audio/mpeg">
     <script src="game.js"></script>
   </body>
 </html>
