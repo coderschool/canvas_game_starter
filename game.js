@@ -17,8 +17,8 @@ let count = 0;
 let foo = false;
 let t = 0;
 
-let bgReady, zoombieReady, monsterReady, plantReady, fixedReady;
-let bgImage, zoombieImage, monsterImage, plantImage, fixedImage;
+let bgReady, zoombieReady, plantReady, fixedReady;
+let bgImage, zoombieImage, plantImage, fixedImage;
 
 function loadImages() {
   bgImage = new Image();
@@ -27,6 +27,14 @@ function loadImages() {
     bgReady = true;
   };
   bgImage.src = "images/bg-zombie.png";
+
+  fixedImage = new Image();
+  fixedImage.onload = function() {
+    //show fixed zoombies
+    fixedReady = true;
+  }
+  fixedImage.src = "images/fixed.png"
+
   zoombieImage = new Image();
   zoombieImage.onload = function () {
     // show the hero image
@@ -34,12 +42,12 @@ function loadImages() {
   };
   zoombieImage.src = "images/zoombie-1.png";
 
-  monsterImage = new Image();
-  monsterImage.onload = function () {
-    // show the monster image
-    monsterReady = true;
+  plantImage = new Image();
+  plantImage.onload = function () {
+    // show the plant image
+    plantReady = true;
   };
-  monsterImage.src = "images/monster.png";
+  plantImage.src = "images/plant.png";
 }
 
 /** 
@@ -49,14 +57,19 @@ function loadImages() {
  * zoombieY represents the Y position.
  * We'll need these values to know where to "draw" the hero.
  * 
- * The same applies to the monster.
+ * The same applies to the plant.
  */
 
 let zoombieX = canvas.width / 2;
 let zoombieY = canvas.height / 2;
 
-let monsterX = 100;
-let monsterY = 100;
+let plantX = 200;
+let plantY = 100;
+
+let f1_X = 300;
+let f1_Y = 330;
+let f2_X = 410;
+let f2_Y = 130;
 
 /** 
  * Keyboard Listeners
@@ -80,7 +93,7 @@ function setupKeyboardListeners() {
 
 /**
  *  Update game objects - change player position based on key pressed
- *  and check to see if the monster has been caught!
+ *  and check to see if the plant has been caught!
  *  
  *  If you change the value of 5, the player will move at a different rate.
  */
@@ -110,18 +123,18 @@ let update = function () {
   if (zoombieY> canvas.height - zoombieImage.height) {
     zoombieY = canvas.height - zoombieImage.height;
   }
-  // Check if player and monster collided. Our images
+  // Check if player and plant collided. Our images
   // are about 32 pixels big.
   if (
-    zoombieX <= (monsterX + 32)
-    && monsterX <= (zoombieX + 32)
-    && zoombieY <= (monsterY + 32)
-    && monsterY <= (zoombieY + 32)
+    zoombieX <= (plantX + plantImage.width)
+    && plantX <= (zoombieX + plantImage.width)
+    && zoombieY <= (plantY + plantImage.height)
+    && plantY <= (zoombieY + plantImage.height)
   ) {
-    // Pick a new location for the monster.
-    // Note: Change this to place the monster at a new, random location.
-    monsterX = monsterX + 50;
-    monsterY = monsterY + 70;
+    // Pick a new location for the plant.
+    // Note: Change this to place the plant at a new, random location.
+    plantX = plantX + 50;
+    plantY = plantY + 70;
   }
 };
 
@@ -132,17 +145,21 @@ var render = function () {
   if (bgReady) {
     ctx.drawImage(bgImage, 0, 0);
   }
+  if (fixedReady) {
+    ctx.drawImage(fixedImage, f1_X, f1_Y);
+    ctx.drawImage(fixedImage, f2_X, f2_Y);
+  }
   if (zoombieReady) {
     ctx.drawImage(zoombieImage, zoombieX, zoombieY);
   }
-  if (monsterReady) {
-    ctx.drawImage(monsterImage, monsterX, monsterY);
+  if (plantReady) {
+    ctx.drawImage(plantImage, plantX, plantY);
   }
 };
 
 /**
  * The main game loop. Most every game will have two distinct parts:
- * update (updates the state of the game, in this case our hero and monster)
+ * update (updates the state of the game, in this case our hero and plant)
  * render (based on the state of our game, draw the right things)
  */
 var main = function () {
