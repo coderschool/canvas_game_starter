@@ -17,12 +17,15 @@ ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 488;
 
+let maxCount = 1;
+let totalTime = 20;
+
 // document.body.appendChild(canvas);
 
 let bgReady, dinoReady, eggReady;
 let bgImage, dinoImage, eggImage;
 
-var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 10 * 1000);
+var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * totalTime * 1000);
 
 let newGameBtn = document.getElementById("resetBtn");
 newGameBtn.addEventListener("click", Reset);
@@ -32,6 +35,25 @@ let secondsSpan = document.getElementById("remain-time");
 var timeinterval;
 
 var backgroundMusic;
+
+var img = [
+  "1.png",
+  "2.png",
+  "3.png",
+  "4.png",
+  "5.png",
+  "6.png",
+  "7.png",
+  "8.png",
+  "9.png",
+  "10.png",
+  "11.png",
+  "12.png",
+  "13.png",
+  "14.png",
+  "15.png",
+  "16.png"
+];
 
 initializeClock("remain-time", deadline);
 
@@ -55,7 +77,15 @@ function loadImages() {
     // show the egg image
     eggReady = true;
   };
-  eggImage.src = "images/egg.png";
+  eggImage.src = "images/eggFolder/1.png";
+}
+
+function getRandomImage() {
+  var num = Math.floor(Math.random() * img.length);
+
+  eggImage.src = "images/eggFolder/" + img[num];
+
+  // show the egg image
 }
 
 //random color
@@ -147,22 +177,12 @@ let update = function() {
       dinoX = 0;
     }
   }
-  // dinoX = Math.min(canvas.width - 50, dinoX);
-  // dinoX = Math.max(0, dinoX);
-  // dinoY = Math.min(canvas.height - 70, dinoY);
-  // dinoY = Math.max(0, dinoY);
 
-  // Check if player and egg collided. Our images
-  // are about 32 pixels big.
 
   if (
-    dinoX <= eggX + 40 &&
-    eggX <= dinoX + 40 &&
-    dinoY <= eggY + 40 &&
-    eggY <= dinoY + 40
-  ) {
+    dinoX <= eggX + 40 && eggX <= dinoX + 40 && dinoY <= eggY + 40 && eggY <= dinoY + 40) {
     eggCount += 1;
-
+    getRandomImage();
     // Pick a new location for the egg.
     // Note: Change this to place the egg at a new, random location.
     eggX = Math.floor(Math.random() * 480);
@@ -186,6 +206,23 @@ var render = function() {
   }
 };
 
+function win() {
+  ctx.font = "20px Comic Sans MS";
+  ctx.fillStyle = "red";
+  ctx.fillText("Congrats. You win", 150, 150);
+  stopTimer(timeinterval);
+
+  let gameLevel2 = document.getElementById("level2");
+  gameLevel2.style.display = "block";
+}
+
+function lose() {
+  ctx.font = "20px Comic Sans MS";
+  ctx.fillStyle = "red";
+  ctx.fillText("Sorry, try next time", 150, 150);
+  stopTimer(timeinterval);
+}
+
 /**
  * The main game loop. Most every game will have two distinct parts:
  * update (updates the state of the game, in this case our dino and egg)
@@ -193,26 +230,21 @@ var render = function() {
  */
 
 var main = function() {
-  if (eggCount == 5) {
-    eggCount == 5;
-    ctx.font = "20px Comic Sans MS";
-    ctx.fillStyle = "red";
-    ctx.fillText("Congrats. You win", 150, 150);
-    stopTimer(timeinterval);
-  }
-  if (secondsSpan == 0) {
-    eggCount == 5;
-    ctx.font = "20px Comic Sans MS";
-    ctx.fillStyle = "red";
-    ctx.fillText("Sorry, try next time", 150, 150);
-    stopTimer(timeinterval);
-  } else {
+  var currentRemainingTime = secondsSpan.innerHTML;
+
+  if (currentRemainingTime !== "0" && eggCount >= 0 && eggCount < maxCount) {
     update();
-
     render();
-
     let eggCountNum = document.getElementById("eggCountHTML");
     eggCountNum.innerHTML = eggCount;
+  }
+
+  if (eggCount === maxCount) {
+    win();
+  }
+
+  if (currentRemainingTime === "0") {
+    lose();
   }
 
   // ctx.font = "12px Comic Sans MS";
@@ -247,34 +279,13 @@ function initializeClock(id, endtime) {
     secondsSpan.innerHTML = ("0" + t.seconds).slice(-2);
 
     if (t.total <= 0) {
-      // stopTimer(timeinterval);
-      clearInterval(timeinterval);
-      // secondsSpan.innerHTML = "0";
+      secondsSpan.innerHTML = "0";
     }
   }
 
   updateClock();
   timeinterval = setInterval(updateClock, 1000);
 }
-
-function closeForm(element) {
-  document.getElementById("element").style.display = "none";
-}
-
-// function submitName() {
-// let userInputName = document.getElementById("nameInput").value;
-
-// let player = document.getElementById("playerName");
-// player.innerHTML = userInputName;
-// closeForm("myForm");
-// document
-//   .getElementById("submitBtn")
-//   .addEventListener("click", function(event) {
-//     event.preventDefault();
-//   });
-
-// let submitButton = document.getElementById("submitBtn");
-// submitButton.addEventListener("click", submitName);
 
 function stopTimer(clock) {
   clearInterval(clock);
@@ -292,6 +303,21 @@ function getTimeRemaining(endtime) {
   };
 }
 
+function closeForm(element) {
+  document.getElementById(element).style.display = "none";
+}
+
+function submitName() {
+  let userInputName = document.getElementById("nameInput").value;
+
+  let player = document.getElementById("playerName");
+  player.innerHTML = "Hello " + userInputName + "!";
+  closeForm("myForm");
+}
+
+let submitButton = document.getElementById("submitBtn");
+submitButton.addEventListener("click", submitName);
+
 // Let's play this game!
 
 backgroundMusic = document.getElementById("myBgMusic");
@@ -308,12 +334,17 @@ function pauseAudio() {
 let volOffBtn = document.getElementById("volOff");
 volOffBtn.addEventListener("click", pauseAudio);
 
-function display() {
-  document.getElementById("instruction").style.display = "none";
+function toggle() {
+  var x = document.getElementById("instruction");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
 }
 
 let hintBtn = document.getElementById("playHint");
-hintBtn.addEventListener("click", display);
+hintBtn.addEventListener("click", toggle);
 
 loadImages();
 
