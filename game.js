@@ -23,6 +23,23 @@ function random(x) {
   return Math.floor(Math.random() * x)
 }
 
+//Timing
+
+function timeUpdate() {
+  t++;
+  timer.innerText = `${t} s`;
+ };
+
+ function start() {
+  count = 0;
+  t = 0;
+  myTimer = setInterval(timeUpdate, 1000);
+}
+
+  startBtn.addEventListener('click', start);
+
+//*****/
+
 //moving around 
 function changePosition() {
   let maxw = canvas.width - plantImage.width;
