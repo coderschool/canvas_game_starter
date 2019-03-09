@@ -34,11 +34,28 @@ function timeUpdate() {
   count = 0;
   t = 0;
   myTimer = setInterval(timeUpdate, 1000);
+  setupKeyboardListeners();
+  
 }
+
+function stopTimer(t) {
+  clearInterval(t);
+};
 
   startBtn.addEventListener('click', start);
 
-//*****/
+//**Count number of plant caught 
+
+function countAndShow() {
+  //count times a plant has caught
+  if (count < 10) {
+    count++;
+    result.innerText = `plant: ${count}, still ${10 -count}`;
+  } else if (count === 10) {
+    stopTimer(myTimer);
+    stopKeyboarListeners();
+  }
+}
 
 //moving around 
 function changePosition() {
@@ -83,12 +100,6 @@ function loadImages() {
 
 /** 
  * Setting up our characters.
- * 
- * Note that zoombieX represents the X position of our hero.
- * zoombieY represents the Y position.
- * We'll need these values to know where to "draw" the hero.
- * 
- * The same applies to the plant.
  */
 
 let zoombieX = canvas.width / 2;
@@ -103,30 +114,36 @@ let f2_X = 410;
 let f2_Y = 130;
 
 /** 
- * Keyboard Listeners
- * You can safely ignore this part, for now. 
- * 
- * This is just to let JavaScript know when the user has pressed a key.
+ * Keyboard Listeners & Stop keyboard listener
+ *
 */
 let keysDown = {};
-function setupKeyboardListeners() {
-  // Check for keys pressed where key represents the keycode captured
-  // For now, do not worry too much about what's happening here. 
-  addEventListener("keydown", function (key) {
-    keysDown[key.keyCode] = true;
-  }, false);
 
-  addEventListener("keyup", function (key) {
-    delete keysDown[key.keyCode];
-  }, false);
+let handleKeyUp = function (key) {
+  delete keysDown[key.keyCode];
+};
+
+let handleKeyDown = function (key) {
+  keysDown[key.keyCode] = true;
+};
+
+function setupKeyboardListeners() {
+  addEventListener("keydown", handleKeyDown, false);
+
+  addEventListener("keyup", handleKeyUp, false);
+  foo = true;
+}
+
+function stopKeyboarListeners() {
+  removeEventListener("keydown", handleKeyDown, false);
+  removeEventListener("keyup", handleKeyUp, false);
+  keysDown = {};
 }
 
 
 /**
  *  Update game objects - change player position based on key pressed
  *  and check to see if the plant has been caught!
- *  
- *  If you change the value of 5, the player will move at a different rate.
  */
 let update = function () {
   if (38 in keysDown) { // Player is holding up key
@@ -141,7 +158,7 @@ let update = function () {
   if (39 in keysDown) { // Player is holding right key
     zoombieX += 5;
   }
-
+// check if zoombie out of canvas
   if( zoombieX <0) {
     zoombieX = 0;
   }
@@ -154,19 +171,26 @@ let update = function () {
   if (zoombieY> canvas.height - zoombieImage.height) {
     zoombieY = canvas.height - zoombieImage.height;
   }
+
+  //check if zoombie run into fixed zoombies
+  // if(zoombieX + zoombieImage.width >=  )
+
+
   // Check if player and plant collided. Our images
-  // are about 32 pixels big.
+  // are about 56 pixels big.
   if (
     zoombieX <= (plantX + plantImage.width)
     && plantX <= (zoombieX + plantImage.width)
     && zoombieY <= (plantY + plantImage.height)
     && plantY <= (zoombieY + plantImage.height)
   ) {
- 
-    // Pick a new location for the plant.
+     // Pick a new location for the plant.
     plantX = random(canvas.width - plantImage.width);
     plantY = random(canvas.height - plantImage.height);
+    countAndShow();
   }
+
+ 
 };
 
 /**
@@ -210,4 +234,5 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 // Let's play this game!
 loadImages();
 setupKeyboardListeners();
+
 main();
