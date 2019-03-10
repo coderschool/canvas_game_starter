@@ -18,7 +18,7 @@
     <h2>Help Dino To Collet Eggs</h2>
     <!-- <h3 id="level1" class="level level1"><a href="level1.html">Level 1</a></h3> -->
     <h3 id="level2" class="level level2 text-white">
-      <a href="#">LEVEL 2 </a>
+      <span> <a href="#">LEVEL 2 </a></span>
     </h3>
     <h5 id="note" class="fundme text-white">
       Thank you playing this game. If you're interested, you may sponsor me to
@@ -29,14 +29,19 @@
     <div>
       <p id="username"></p>
     </div>
+
     <div class="container " id="scoreScreen">
       <p id="playerName"></p>
+      <span> <a href="index.html"> &larr; Level 1</a></span>
+
       <div class="row d-flex flex-row">
         <div class="col-xl-6 col-lg-7 ">
           <canvas class="border border-warning"> </canvas>
         </div>
         <div class="col-xl-2 col-lg-5 border border-warning">
-          <ul class="list-group-flush list-group">
+          <ul
+            class="list-group-flush list-group  flex-xl-column flex-lg-column flex-sm-row"
+          >
             <li class="list-group-item set-color-bg align-self-center">
               <span class="timeSlot text-white " id="remain-time"></span>
             </li>

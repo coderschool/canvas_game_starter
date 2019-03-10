@@ -25,14 +25,11 @@
   margin-top: -20px;
 }
 
-.form-popup {
-  /* text-align: center; */
+.form-group {
   display: block;
-  position: fixed;
-  bottom: 300px;
-  right: 800px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
+  margin-top: 200px !important;
+  margin-left: 100px !important;
+  z-index: 9 !important;
 }
 
 .form-container {
@@ -76,9 +73,10 @@ ul.list-group-flush.eggimg {
 }
 
 .level {
-  margin-left: 430px;
+  color: white;
+  margin-left: 500px;
 }
-.level a {
+h3 a {
   text-decoration: none;
   color: white;
 }
@@ -131,6 +129,5 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 55px;
-
-  margin-left: 220px;
+  margin-left: 240px !important;
 }
