@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 #Netlify link
 
 http://dino-catching-egg.netlify.com
+=======
+# dino-catching-egg.netlify.com
+>>>>>>> e9ea81cb1246140c968b43522624742b9f55d9cd
 
 # CoderSchool FTW - _ Nam, the Monster Hunter _
 
