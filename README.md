@@ -57,13 +57,13 @@ Time spent: a life :v spent in total.
 Challenge: 
 
 - To do list after making this game
-[ ] spend time to do canvas tutorial
-[ ] dig more in game app process
+- [ ] spend time to do canvas tutorial
+- [ ] dig more in game app process
 
 - What I learn during making this game
-[ ] More about canvas
-[ ] Making timer count up
-[ ] Making an object move around
+- [ ] More about canvas
+- [ ] Making timer count up
+- [ ] Making an object move around
 
 
 ## License
