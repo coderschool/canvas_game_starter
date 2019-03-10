@@ -1,4 +1,4 @@
-# CoderSchool FTW - * Nam, the Monster Hunter *
+# CoderSchool FTW - * Zoombie loves plants *
 
 Created with love by: Huong Trinh (Kim)
   
@@ -25,24 +25,24 @@ This code was reviewed by @Charles Lee
 ## Required User Stories
 - [ ] I have at least three code reviews from others.
 - [x] The user can move their character with the arrow keys. 
-- [x] The user can see a monster.
-- [x] The monster is placed at a random location within the game boundaries.
-- [x] The user can catch a monster by moving their character to the same location as a monster.
-- [x] When the user catches a monster, a new monster is placed randomly upon the screen.
-- [x] The user can see the numbers of monsters she has caught. Every time she catches a monster, the number should increment by one. 
-- [x] The game ends when the user has caught 10 monsters. The total time elapsed is displayed upon game completion, in seconds.
+- [x] The user can see a plant.
+- [x] The plant is placed at a random location within the game boundaries.
+- [x] The user can catch a plant by moving their character to the same location as a plant.
+- [x] When the user catches a plant, a new plant is placed randomly upon the screen.
+- [x] The user can see the numbers of plants she has caught. Every time she catches a plant, the number should increment by one. 
+- [x] The game ends when the user has caught 10 plants. The total time elapsed is displayed upon game completion, in seconds.
 - [x] The user can access this game from the internet (e.g. using Netlify).
 - [ ] The code has been reviewed by at least one other person, using Pull Requests on GitHub.
 
 ## Optional User Stories
 
-- [x] Custom styling: the developer has replaced the images for the main character, monster, and background with something of her choice.  
+- [x] Custom styling: the developer has replaced the images for the main character, plant, and background with something of her choice.  
 - [x] The user cannot move her character off the screen. 
-- [x] The user sees a few different types of monster each time a new monster is spawned. 
-- [ ] The monster moves around on its own each frame, and the user must chase it. 
+- [x] The user sees a few different types of plant each time a new plant is spawned. 
+- [ ] The plant moves around on its own each frame, and the user must chase it. 
 - [x] The map has "obstacles", such as trees, 
 - [ ] obstacles should block the user from moving through the space occupied by the obstacle. 
-- [ ] The user can hear sound effects upon movement and upon catching a monster. 
+- [ ] The user can hear sound effects upon movement and upon catching a plant. 
 - [ ] The user hears background music during the game. 
 - [x] The user can see their high score. 
 
