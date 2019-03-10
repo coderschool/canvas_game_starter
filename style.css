@@ -1,13 +1,12 @@
 body {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-   
+    align-items: stretch;
 }
 #main {
     background-color: green;
     font-family: 'ZCOOL QingKe HuangYou', cursive;
-    
+    flex: 1; 
    }
 canvas {
     background-color: black;
