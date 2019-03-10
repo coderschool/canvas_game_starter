@@ -18,13 +18,10 @@
     <div class="container">
       <div class="form-group position-fixed" id="myForm">
         <div class="form-container">
-          <label for="playerName"><b>Please enter your name</b></label>
-          <input
-            id="nameInput"
-            type="text"
-            placeholder="your name"
-            name="email"
-          />
+          <label for="playerName"
+            ><b>Please enter your nickname to start</b></label
+          >
+          <input id="nameInput" type="text" placeholder="your name" autofocus />
           <button id="submitBtn" class="btn border">Submit</button>
         </div>
       </div>
@@ -40,7 +37,7 @@
     <br />
     <!-- </div> -->
     <div class="container " id="scoreScreen">
-      <p class="text-white" id="playerName"></p>
+      <p class="text-primary text-uppercase" id="playerName"></p>
       <div class="row d-flex">
         <div class="col-xl-6 col-lg-7 ">
           <canvas class="border border-warning" id="playScreen"> </canvas>
@@ -57,7 +54,7 @@
                 ><img
                   src="images/egg-2.png"
                   clas="eggimg"
-                  style="margin-top:-40px"
+                  style="margin-top:-24px"
               /></span>
               <span class="eggCountStyle" id="eggCountHTML"> eggCount</span>
             </li>

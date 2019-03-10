@@ -36,7 +36,7 @@ var backgroundMusic;
 
 var img = [
   "1.png",
-  "2.png",
+  // "2.png",
   "3.png",
   "4.png",
   "5.png",
@@ -78,7 +78,6 @@ function loadImages() {
 
 function getRandomImage() {
   var num = Math.floor(Math.random() * (img.length - 1));
-
   eggImage.src = "images/eggFolder/" + img[num];
 
   // show the egg image
@@ -230,7 +229,18 @@ function lose() {
 var main = function() {
   var currentRemainingTime = secondsSpan.innerHTML;
 
-  if (currentRemainingTime !== "0" && eggCount >= 0 && eggCount < maxEgg) {
+  var playerName = document.getElementById("nameInput").value;
+
+  if (playerName === "") {
+    render();
+  }
+
+  if (
+    playerName !== "" &&
+    currentRemainingTime !== "0" &&
+    eggCount >= 0 &&
+    eggCount < maxEgg
+  ) {
     update();
     render();
     let eggCountNum = document.getElementById("eggCountHTML");
@@ -307,6 +317,12 @@ function closeForm(element) {
 
 function submitName() {
   let userInputName = document.getElementById("nameInput").value;
+  var playerName = document.getElementById("playerName");
+
+  if (userInputName === "") {
+    playerName.innerHTML = "<p style='color:red;'>Calling your name...</p>";
+    return;
+  }
 
   let player = document.getElementById("playerName");
   player.innerHTML = "Hello " + userInputName + "!";
@@ -354,8 +370,3 @@ loadImages();
 setupKeyboardListeners();
 
 main();
-
-// let userInput = prompt("Please enter your name");
-// let player = document.getElementById("playerName");
-// player.innerHTML = userInput;
-// console.log("username", userInput);
