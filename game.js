@@ -17,7 +17,7 @@ ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 488;
 
-let maxEgg = 15;
+let maxEgg = 12;
 let maxTime = 30;
 
 // document.body.appendChild(canvas);
@@ -82,6 +82,9 @@ function getRandomImage() {
 
   // show the egg image
 }
+
+// let collideSound = new sound("song/beep.mp3");
+// let gameOverSound = new sound("song/lose.mp3");
 
 //random color
 
