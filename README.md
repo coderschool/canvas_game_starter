@@ -1,4 +1,4 @@
-dino-catching-egg.netlify.com
+# dino-catching-egg.netlify.com
 
 # CoderSchool FTW - _ Nam, the Monster Hunter _
 
