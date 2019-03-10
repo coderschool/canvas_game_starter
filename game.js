@@ -60,10 +60,10 @@ let enterPress = function (key) {
 function countAndShow() {
   //count times a plant has caught
  
-  if (count < 5) {
+  if (count < 10) {
     count++;
   } 
-  if (count === 5) {
+  if (count === 10) {
     score.push(t);
   var best =  Math.min(...score);
     info.innerText = `recent score: ${t} s
