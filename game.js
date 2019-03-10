@@ -17,15 +17,13 @@ ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 488;
 
-let maxCount = 2;
-let totalTime = 30;
+let maxEgg = 2;
+let maxTime = 30;
 
 // document.body.appendChild(canvas);
 
 let bgReady, dinoReady, eggReady;
 let bgImage, dinoImage, eggImage;
-
-var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * totalTime * 1000);
 
 let newGameBtn = document.getElementById("resetBtn");
 newGameBtn.addEventListener("click", Reset);
@@ -54,8 +52,6 @@ var img = [
   "15.png",
   "16.png"
 ];
-
-initializeClock("remain-time", deadline);
 
 function loadImages() {
   bgImage = new Image(); //create new Img Element
@@ -93,7 +89,6 @@ function getRandomImage() {
 /** 
  * Setting up our characters.
  
-
  * Note that dinoX represents the X position of our dino.
  * dinoY represents the Y position.
  * We'll need these values to know where to "draw" the dino.
@@ -235,14 +230,14 @@ function lose() {
 var main = function() {
   var currentRemainingTime = secondsSpan.innerHTML;
 
-  if (currentRemainingTime !== "0" && eggCount >= 0 && eggCount < maxCount) {
+  if (currentRemainingTime !== "0" && eggCount >= 0 && eggCount < maxEgg) {
     update();
     render();
     let eggCountNum = document.getElementById("eggCountHTML");
     eggCountNum.innerHTML = eggCount;
   }
 
-  if (eggCount === maxCount) {
+  if (eggCount === maxEgg) {
     win();
   }
 
@@ -316,6 +311,11 @@ function submitName() {
   let player = document.getElementById("playerName");
   player.innerHTML = "Hello " + userInputName + "!";
   closeForm("myForm");
+
+  playAudio();
+  var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * maxTime * 1000);
+  initializeClock("remain-time", deadline);
+  main();
 }
 
 let submitButton = document.getElementById("submitBtn");
@@ -354,6 +354,7 @@ loadImages();
 setupKeyboardListeners();
 
 main();
+
 // let userInput = prompt("Please enter your name");
 // let player = document.getElementById("playerName");
 // player.innerHTML = userInput;

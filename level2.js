@@ -36,7 +36,7 @@ var timeinterval;
 
 var backgroundMusic;
 
-let catchBomb = false;
+let bombIsCaught = false;
 
 var img = [
   "1.png",
@@ -157,13 +157,15 @@ let update = function() {
     if (dinoY < 0) {
       dinoY = canvas.height;
     }
+    // console.log(dinoY);
   }
   if (40 in keysDown) {
     // Player is holding down key
     dinoY += 6;
-    if (dinoY > canvas.height) {
+    if (dinoY > canvas.height + 70) {
       dinoY = 0;
     }
+    // console.log(dinoY);
   }
   if (37 in keysDown) {
     // Player is holding left key
@@ -191,7 +193,14 @@ let update = function() {
   //   if (dinoX <= bombX + 40 && bombX <= dinoX + 40 && dinoY <= bombY + 40 && bombY <= dinoY + 40) {
   //     lose();
   //   }
-
+  if (
+    dinoX <= bombX + 40 &&
+    bombX <= dinoX + 40 &&
+    dinoY <= bombY + 40 &&
+    bombY <= dinoY + 40
+  ) {
+    bombIsCaught = true;
+  }
   if (
     dinoX <= eggX + 40 &&
     eggX <= dinoX + 40 &&
@@ -231,11 +240,7 @@ var render = function() {
 function win() {
   ctx.font = "20px Comic Sans MS";
   ctx.fillStyle = "red";
-  ctx.fillText(
-    "Congrats. You beat Level 2. If you're intested in this game, please fund me to make more",
-    0,
-    300
-  );
+  ctx.fillText("Congrats. You super awesome", 0, 300);
   stopTimer(timeinterval);
 
   let gameLevel2 = document.getElementById("level2");
@@ -258,7 +263,12 @@ function lose() {
 var main = function() {
   var currentRemainingTime = secondsSpan.innerHTML;
 
-  if (currentRemainingTime !== "0" && eggCount >= 0 && eggCount < maxCount) {
+  if (
+    !bombIsCaught &&
+    currentRemainingTime !== "0" &&
+    eggCount >= 0 &&
+    eggCount < maxCount
+  ) {
     update();
     render();
     let eggCountNum = document.getElementById("eggCountHTML");
@@ -269,7 +279,7 @@ var main = function() {
     win();
   }
 
-  if (currentRemainingTime === "0") {
+  if (currentRemainingTime === "0" || bombIsCaught) {
     lose();
   }
 
