@@ -1,10 +1,18 @@
-dino-catching-egg.netlify.com
+#Netlify link
+
+http://dino-catching-egg.netlify.com
 
 # CoderSchool FTW - _ Nam, the Monster Hunter _
 
-Created with love by: Charles Lee
+Created with love by: Anh Hoang
 
 This is a simple Canvas-based game that requires a solid understanding of the principles of JavaScript programming to customize.
+
+This game has 2 levels. Instructions:
+Level 1: you will catch 12 eggs in 30 seconds to win
+Level 2: you will catch 15 eggs in 30 seconds and stay away form obstacles (bomb) to win.
+
+<!-- Note: because the bomb will randomly relocated, in case it relocates right on your current position, you will lose. You need some lucks to play it as well =]]  -->
 
 ## Video Walkthrough
 
