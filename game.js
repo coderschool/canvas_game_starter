@@ -17,23 +17,30 @@ ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 488;
 
+// define max Egg collected and max duration
 let maxEgg = 12;
 let maxTime = 30;
 
 // document.body.appendChild(canvas);
 
+/* declare global variables*/
+
+/*declare 3 objects*/
 let bgReady, dinoReady, eggReady;
 let bgImage, dinoImage, eggImage;
 
+/* set-up function, button reset game*/
 let newGameBtn = document.getElementById("resetBtn");
 newGameBtn.addEventListener("click", Reset);
 
+/*declare variables for remaining time*/
 let secondsSpan = document.getElementById("remain-time");
-
 var timeinterval;
 
+/*declare game theme song*/
 var backgroundMusic;
 
+/*images array*/
 var img = [
   "1.png",
   // "2.png",
@@ -52,6 +59,8 @@ var img = [
   "15.png",
   "16.png"
 ];
+
+/*function load Images*/
 
 function loadImages() {
   bgImage = new Image(); //create new Img Element
@@ -76,28 +85,17 @@ function loadImages() {
   eggImage.src = "images/eggFolder/1.png";
 }
 
+/*function random images in array*/
+
 function getRandomImage() {
   var num = Math.floor(Math.random() * (img.length - 1));
   eggImage.src = "images/eggFolder/" + img[num];
-
-  // show the egg image
 }
 
 // let collideSound = new sound("song/beep.mp3");
 // let gameOverSound = new sound("song/lose.mp3");
 
-//random color
-
-/** 
- * Setting up our characters.
- 
- * Note that dinoX represents the X position of our dino.
- * dinoY represents the Y position.
- * We'll need these values to know where to "draw" the dino.
- * 
- * The same applies to the egg.
- */
-
+/*set up object positions */
 let dinoX = canvas.width / 2;
 let dinoY = canvas.height / 2;
 
@@ -161,7 +159,8 @@ let update = function() {
   if (37 in keysDown) {
     // Player is holding left key
     dinoX -= 6;
-    dinoImage.src = "images/dino_left.png";
+    dinoImage.src =
+      "images/dino_left.png"; /*dino turn left when user press left key*/
     if (dinoX < 0) {
       dinoX = canvas.width;
     }
@@ -169,11 +168,14 @@ let update = function() {
   if (39 in keysDown) {
     // Player is holding right key
     dinoX += 6;
-    dinoImage.src = "images/dino.png";
+    dinoImage.src =
+      "images/dino.png"; /*dino turn right when user press right key*/
     if (dinoX >= canvas.width) {
       dinoX = 0;
     }
   }
+
+  /* check collision*/
 
   if (
     dinoX <= eggX + 40 &&
