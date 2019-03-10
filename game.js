@@ -20,8 +20,15 @@ canvas.height = 500;
 canvas.style.border = "thick solid #66b3ff";
 document.body.appendChild(canvas);
 
-let bgReady, heroReady, monsterReady;
-let bgImage, heroImage, monsterImage;
+let bgReady, heroReady, monsterReady, obstacle1Ready, obstacle2Ready ;
+let bgImage, heroImage, monsterImage, obstacle1Image, obstacle2Image ;
+
+//Add background music to the game
+document.addEventListener('click', musicPlay);
+function musicPlay() {
+    document.getElementById('myAudio').play();
+    // document.removeEventListener('click', musicPlay);
+}
 
 function loadImages() {
   bgImage = new Image();
@@ -44,6 +51,20 @@ function loadImages() {
     monsterReady = true;
   };
   monsterImage.src = "images/fish-1.png";
+
+  obstacle1Image = new Image();
+  obstacle1Image.onload = function () {
+    // show the obstacle image 1
+    obstacle1Ready = true;
+  };
+  obstacle1Image.src = "images/obstacle-1.png";
+
+  obstacle2Image = new Image();
+  obstacle2Image.onload = function () {
+    // show the obstacle image 2
+    obstacle2Ready = true;
+  };
+  obstacle2Image.src = "images/obstacle-2.png";
 }
 
 /** 
@@ -68,12 +89,11 @@ let monsterSpeed = 5;
 let monsterDirectionX = 1;
 let monsterDirectionY = 1;
 
-// I do not think I will need the below functionin this case
-// function getRandomInt(min, max) {
-//   min = Math.ceil(min);
-//   max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
-// }
+// Position of obstacle1 and obstacle2
+let obstacle1X = Math.floor((Math.random() * canvas.width - 100)); //X position of obstacle1
+let obstacle1Y = Math.floor((Math.random() * canvas.height - 100)); //Y position of obstacle1
+let obstacle2X = Math.floor((Math.random() * canvas.width - 100)); //X position of obstacle2
+let obstacle2Y = Math.floor((Math.random() * canvas.height - 100)); //Y position of obstacle2
 
 
 /** 
@@ -127,6 +147,12 @@ function updateTime() {
   roundTime = Math.floor( (currentTime - roundStartTime) / 1000);
 }
 
+// Movement direction of heroX
+let obstacle1DirectionX = 1;
+let obstacle1DirectionY = 1;
+let obstacle2DirectionX = 1;
+let obstacle2DirectionY = 1;
+
 let update = function () {
     if (38 in keysDown) { // Player is holding up key
       heroY -= 5; //
@@ -153,13 +179,13 @@ let update = function () {
     monsterY += (monsterSpeed * monsterDirectionY);
 
     // Check if player and monster collided. Our images
-    // are about 32 pixels big.
+    // are about 40 pixels big.
 
     if (
-      heroX <= (monsterX + 32) &&
-      monsterX <= (heroX + 32) &&
-      heroY <= (monsterY + 32) &&
-      monsterY <= (heroY + 32)
+      heroX <= (monsterX + 40) &&
+      monsterX <= (heroX + 40) &&
+      heroY <= (monsterY + 40) &&
+      monsterY <= (heroY + 40)
     ) {
       // Pick a new location for the monster.
       // Note: Change this to place the monster at a new, random location.
@@ -170,6 +196,43 @@ let update = function () {
       roundStartTime = Date.now();
     }
 
+    if (
+      heroX <= (obstacle1X + 40) &&
+      obstacle1X <= (heroX + 80) &&
+      heroY <= (obstacle1Y + 40) &&
+      obstacle1Y <= (heroY + 80)
+    ) {
+      // Pick a new location for the hero whenever hero reaches obstacle1
+      obstacle1DirectionX = obstacle1DirectionX * -1;
+      heroX += (100 * obstacle1DirectionX); 
+      obstacle1DirectionY = obstacle1DirectionY * -1;
+      heroY += (100 * obstacle1DirectionY); 
+    }
+
+    if (
+      heroX <= (obstacle2X + 40) &&
+      obstacle2X <= (heroX + 80) &&
+      heroY <= (obstacle2Y + 40) &&
+      obstacle2Y <= (heroY + 80)
+    ) {
+      // Pick a new location for the hero whenever hero reaches obstacle2 
+      obstacle2DirectionX = obstacle2DirectionX * -1;
+      heroX += (100 * obstacle2DirectionX); 
+      obstacle2DirectionY = obstacle2DirectionY * -1;
+      heroY += (100 * obstacle2DirectionY); 
+    }
+
+    // The below code lines are not working as expected, I am still looking for solutions that the obstacles will actually block the movement of the hero.  
+    // if (
+    //   heroX + 40 == obstacle1X &&
+    //   heroY >= obstacle1Y &&
+    //   heroY <= obstacle1Y + 40
+    // ) {
+    //   heroX = obstacle1X - 40;
+    //   // heroY += 5
+    // }
+
+    
     if (score >= 3 && score <10) {
       monsterImage.src = "images/fish-2.png";
     }
@@ -177,19 +240,20 @@ let update = function () {
       monsterImage.src = "images/fish-3.png";
     }
 
-      if (heroX >= canvas.width) {
-        heroX = 0;
-      }
-      if (heroX < 0) {
-        heroX = canvas.width;
-      }
-      if (heroY >= canvas.height) {
-        heroY = 0;
-      }
-      if (heroY < 0) {
-        heroY = canvas.height;
-      }
-    };
+    //The hero will not move out side of the canvas
+    if (heroX >= canvas.width) {
+      heroX = 0;
+    }
+    if (heroX < 0) {
+      heroX = canvas.width;
+    }
+    if (heroY >= canvas.height) {
+      heroY = 0;
+    }
+    if (heroY < 0) {
+      heroY = canvas.height;
+    }
+};
 
     /**
      * This function, render, runs as often as possible.
@@ -203,6 +267,12 @@ let update = function () {
       }
       if (monsterReady) {
         ctx.drawImage(monsterImage, monsterX, monsterY, monsterImage.width = 40, monsterImage.height = 40);
+      }
+      if (obstacle1Ready) {
+        ctx.drawImage(obstacle1Image, obstacle1X, obstacle1Y, obstacle1Image.width = 80, obstacle1Image.height = 80);
+      }
+      if (obstacle2Ready) {
+        ctx.drawImage(obstacle2Image, obstacle2X, obstacle2Y, obstacle2Image.width = 80, obstacle2Image.height = 80);
       }
       ctx.font = "20px Arial";
       ctx.fillText(`Your score: ${score}`, 10, 50);
