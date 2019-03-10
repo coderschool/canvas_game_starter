@@ -17,7 +17,7 @@ ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 488;
 
-let maxCount = 10;
+let maxCount = 15;
 let totalTime = 30;
 
 // document.body.appendChild(canvas);
@@ -46,7 +46,15 @@ var img = [
   "5.png",
   "6.png",
   "7.png",
-  "8.png"
+  "8.png",
+  "9.png",
+  "10.png",
+  "11.png",
+  "12.png",
+  "12.png",
+  "14.png",
+  "15.png",
+  "16.png"
 ];
 
 initializeClock("remain-time", deadline);
@@ -82,7 +90,7 @@ function loadImages() {
 }
 
 function getRandomImage() {
-  var num = Math.floor(Math.random() * img.length);
+  var num = Math.floor(Math.random() * (img.length - 1));
 
   eggImage.src = "images/eggFolder/" + img[num];
 
@@ -194,10 +202,10 @@ let update = function() {
   //     lose();
   //   }
   if (
-    dinoX <= bombX + 40 &&
-    bombX <= dinoX + 40 &&
-    dinoY <= bombY + 40 &&
-    bombY <= dinoY + 40
+    dinoX <= bombX + 20 &&
+    bombX <= dinoX + 20 &&
+    dinoY <= bombY + 20 &&
+    bombY <= dinoY + 20
   ) {
     bombIsCaught = true;
   }
@@ -223,15 +231,19 @@ let update = function() {
  */
 var render = function() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   if (bgReady) {
     ctx.drawImage(bgImage, 0, 0);
   }
+
   if (dinoReady) {
     ctx.drawImage(dinoImage, dinoX, dinoY);
   }
+
   if (eggReady) {
     ctx.drawImage(eggImage, eggX, eggY);
   }
+
   if (bombReady) {
     ctx.drawImage(bombImage, bombX, bombY);
   }
@@ -240,17 +252,17 @@ var render = function() {
 function win() {
   ctx.font = "20px Comic Sans MS";
   ctx.fillStyle = "red";
-  ctx.fillText("Congrats. You super awesome", 0, 300);
+  ctx.fillText("Congrats. You super awesome", 100, 300);
   stopTimer(timeinterval);
 
-  let gameLevel2 = document.getElementById("level2");
-  gameLevel2.style.display = "block";
+  let gameLevel = document.getElementById("note");
+  gameLevel.style.display = "block";
 }
 
 function lose() {
   ctx.font = "20px Comic Sans MS";
   ctx.fillStyle = "red";
-  ctx.fillText("Sorry, try next time", 150, 150);
+  ctx.fillText("Sorry, try next time", 250, 250);
   stopTimer(timeinterval);
 }
 

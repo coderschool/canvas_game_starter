@@ -17,7 +17,7 @@ ctx = canvas.getContext("2d");
 canvas.width = 512;
 canvas.height = 488;
 
-let maxEgg = 2;
+let maxEgg = 15;
 let maxTime = 30;
 
 // document.body.appendChild(canvas);
@@ -77,7 +77,7 @@ function loadImages() {
 }
 
 function getRandomImage() {
-  var num = Math.floor(Math.random() * img.length);
+  var num = Math.floor(Math.random() * (img.length - 1));
 
   eggImage.src = "images/eggFolder/" + img[num];
 
