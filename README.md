@@ -3,6 +3,8 @@
 Created with love by: Huong Trinh (Kim)
   
 This is a simple Canvas-based game that requires a solid understanding of the principles of JavaScript programming to customize. 
+Link to the game: https://zoombie-love-plant.netlify.com/
+
 
 ## Video Walkthrough
 
