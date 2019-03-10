@@ -1,0 +1,18 @@
+body {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+   
+}
+#main {
+    background-color: green;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    
+   }
+canvas {
+    background-color: black;
+    border: 10px solid green;
+   
+    
+}
+
