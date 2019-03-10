@@ -3,7 +3,7 @@
 
 http://dino-catching-egg.netlify.com
 
-# CoderSchool FTW - _ Nam, the Monster Hunter _
+# CoderSchool FTW - _ Catching Eggs _
 
 Created with love by: Anh Hoang
 
