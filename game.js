@@ -15,12 +15,12 @@ let ctx;
 
 canvas = document.createElement("canvas");
 ctx = canvas.getContext("2d");
-canvas.width = 512;
-canvas.height = 480;
+canvas.width = 1380;
+canvas.height = 820;
 document.body.appendChild(canvas);
 
-let bgReady, heroReady, monsterReady;
-let bgImage, heroImage, monsterImage;
+let bgReady, heroReady, monsterReady, eagleReady;
+let bgImage, heroImage, monsterImage, eagleImage;
 
 let startTime = Date.now();
 const SECONDS_PER_ROUND = 30;
@@ -32,20 +32,28 @@ function loadImages() {
     // show the background image
     bgReady = true;
   };
-  bgImage.src = "images/background.png";
+  bgImage.src = "images/bg.png";
+
   heroImage = new Image();
   heroImage.onload = function () {
     // show the hero image
     heroReady = true;
   };
-  heroImage.src = "images/hero.png";
+  heroImage.src = "images/monkey3.png";
 
   monsterImage = new Image();
   monsterImage.onload = function () {
     // show the monster image
     monsterReady = true;
   };
-  monsterImage.src = "images/monster.png";
+  monsterImage.src = "images/banana3.png";
+
+  eagleImage = new Image();
+  eagleImage.onload = function () {
+    // show the eagle image
+    eagleReady = true;
+  };
+  eagleImage.src = "images/eagle2.png";
 }
 
 /** 
@@ -63,6 +71,11 @@ let heroY = canvas.height / 2;
 
 let monsterX = 100;
 let monsterY = 100;
+
+let eagleX = 100;
+let eagleY = 100;
+
+let score = 0;
 
 /** 
  * Keyboard Listeners
@@ -96,32 +109,52 @@ let update = function () {
 
 
   if (38 in keysDown) { // Player is holding up key
-    heroY -= 5;
+    heroY -= 10;
   }
   if (40 in keysDown) { // Player is holding down key
-    heroY += 5;
+    heroY += 10;
   }
   if (37 in keysDown) { // Player is holding left key
-    heroX -= 5;
+    heroX -= 10;
   }
   if (39 in keysDown) { // Player is holding right key
-    heroX += 5;
+    heroX += 10;
   }
+
+  if (heroX <= -10) {
+    heroX = canvas.width -10;
+  }
+
+  if (heroX >= canvas.width) {
+    heroX = 0
+  }
+
+  if (heroY >= canvas.height - 10) {
+    heroY = 0;
+  }
+
+  if (heroY <= -10) {
+    heroY = canvas.height -10;
+  }
+
+  
+  let heroTouchMonster = heroX <= (monsterX + 15)
+  && monsterX <= (heroX + 50)
+  && heroY <= (monsterY + 27)
+  && monsterY <= (heroY + 50)
 
   // Check if player and monster collided. Our images
   // are about 32 pixels big.
-  if (
-    heroX <= (monsterX + 32)
-    && monsterX <= (heroX + 32)
-    && heroY <= (monsterY + 32)
-    && monsterY <= (heroY + 32)
-  ) {
+  if (heroTouchMonster) {
     // Pick a new location for the monster.
     // Note: Change this to place the monster at a new, random location.
-    monsterX = monsterX + 50;
-    monsterY = monsterY + 70;
+    score += 1;
+    console.log(score)
+    monsterX = Math.floor(Math.random() * 500);
+    monsterY = Math.floor(Math.random() * 470);
   }
 };
+
 
 /**
  * This function, render, runs as often as possible.
@@ -135,6 +168,9 @@ var render = function () {
   }
   if (monsterReady) {
     ctx.drawImage(monsterImage, monsterX, monsterY);
+  }
+  if (eagleReady) {
+    ctx.drawImage(eagleImage, eagleX, eagleY);
   }
   ctx.fillText(`Seconds Remaining: ${SECONDS_PER_ROUND - elapsedTime}`, 20, 100);
 };
