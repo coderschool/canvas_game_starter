@@ -1,0 +1,11 @@
+#gameContainer {
+  width: 980;
+  height: 680;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.noScroll {
+  max-width: 100vw;
+  overflow-x: hidden;
+}

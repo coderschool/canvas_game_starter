@@ -1,10 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Best Game Ever!</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <div class="container">
+      <h2 class="text-center">Canvas Game</h2>
+      <div
+        class="row col-md-12 d-flex justify-content-center align-items-center"
+      >
+        <div class="col-md-2">
+          <button
+            id="playAgain()"
+            class="btn btn-outline-success"
+            onclick="playAgain()"
+          >
+            Play Again
+          </button>
+        </div>
+
+        <div class="col-md-10 d-flex justify-content-center">
+          <h6 class="alert alert-success">
+            Timer:
+            <span id="timePlay"></span>
+          </h6>
+
+          <h6 class="alert alert-success">
+            Score Number:
+            <span id="scoreNumber">
+              Your Catch
+            </span>
+          </h6>
+          <h6 class="alert alert-success text-center">
+            Your High Score: <span id="playerHighScore"></span>
+          </h6>
+          <h6 class="alert alert-success">
+            Game Number:
+            <span id="gameNumber">1</span>
+          </h6>
+          <h6 class="alert alert-success">
+            Best Score: <span id="highScore"></span>
+          </h6>
+        </div>
+      </div>
+
+      <!-- <h3 id="endOfGame"></h3> -->
+
+      <div class="container d-flex justify-content-center align-items-center">
+        <div class="row col-md-12 noScroll">
+          <div id="gameContainer"></div>
+        </div>
+      </div>
+    </div>
+
     <script src="game.js"></script>
   </body>
 </html>
